@@ -2,14 +2,14 @@ const socket = io();
 
 const params = new URLSearchParams(window.location.search);
 
-if(!params.has('name')){
+if(!params.has('name') || !params.has('room')){
 
     window.location = 'index.html';
 
-    throw new Error('The name is required');
+    throw new Error('The name and the room are required');
 }
 
-const user = {name: params.get('name')};
+const user = {name: params.get('name'), room: params.get('room')};
 
 socket.on('connect', () => {
     // console.log('a user connected');
@@ -19,6 +19,8 @@ socket.on('connect', () => {
     socket.emit('into-chat', user, (data) => {
         console.log('en el chat: ', data);
     });
+
+    // socket.emit('into-chat', user);
 })
 
 socket.on('disconnect', () => {
@@ -35,7 +37,7 @@ socket.on('list-users', (users) => {
     console.log(users);
 })
 
-socket.on('new-message', (payload) => {
+socket.on('new-group-message', (payload) => {
     console.log(payload);
 })
 

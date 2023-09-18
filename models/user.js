@@ -3,10 +3,11 @@ export default class User {
         this.users = [];
     }
 
-    addUser(id, username) {
+    addUser(id, username, room) {
         this.users.push({
             id,
-            username    
+            username,
+            room
         })
 
         return this.users;
