@@ -33,7 +33,7 @@ export const socketController = (socket) => {
         socket.join(payload.room);
 
         const usersByRoom = user.getUserByRoom(payload.room);
-
+ 
         callback(usersByRoom);
 
         socket.broadcast.to(payload.room).emit('list-users', usersByRoom);

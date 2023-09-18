@@ -13,8 +13,8 @@ const user = {name: params.get('name'), room: params.get('room')};
 
 socket.on('connect', () => {
     // console.log('a user connected');
-    document.getElementById('estadoConectado').classList.remove('d-none');
-    document.getElementById('estadoDesconectado').classList.add('d-none');
+    // document.getElementById('estadoConectado').classList.remove('d-none');
+    // document.getElementById('estadoDesconectado').classList.add('d-none');
 
     socket.emit('into-chat', user, (data) => {
         console.log('en el chat: ', data);
@@ -25,8 +25,8 @@ socket.on('connect', () => {
 
 socket.on('disconnect', () => {
     // console.log('user disconnected');
-    document.getElementById('estadoConectado').classList.add('d-none');
-    document.getElementById('estadoDesconectado').classList.remove('d-none');
+    // document.getElementById('estadoConectado').classList.add('d-none');
+    // document.getElementById('estadoDesconectado').classList.remove('d-none');
 })
 
 socket.on('user-disconnected', (data) => {
