@@ -12,7 +12,7 @@ export default class User {
         return this.users;
     }
     getUserById(id) {
-        return this.users.find(user => user.id === id)[0];
+        return this.users.find(user => user.id === id);
     }
 
     removeUser(id) {
@@ -20,7 +20,7 @@ export default class User {
         const user = this.getUserById(id);
 
         this.users = this.users.filter(user => user.id !== id);
-        
+
         return user;
     }
 

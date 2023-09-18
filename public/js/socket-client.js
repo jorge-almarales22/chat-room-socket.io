@@ -1,31 +1,46 @@
 const socket = io();
 
+const params = new URLSearchParams(window.location.search);
+
+if(!params.has('name')){
+
+    window.location = 'index.html';
+
+    throw new Error('The name is required');
+}
+
+const user = {name: params.get('name')};
+
 socket.on('connect', () => {
-    console.log('a user connected');
+    // console.log('a user connected');
     document.getElementById('estadoConectado').classList.remove('d-none');
     document.getElementById('estadoDesconectado').classList.add('d-none');
+
+    socket.emit('into-chat', user, (data) => {
+        console.log('en el chat: ', data);
+    });
 })
 
 socket.on('disconnect', () => {
-    console.log('user disconnected');
+    // console.log('user disconnected');
     document.getElementById('estadoConectado').classList.add('d-none');
     document.getElementById('estadoDesconectado').classList.remove('d-none');
 })
 
+socket.on('user-disconnected', (data) => {
+    console.log('usuario desconectado', data);
+})
 
-// socket.on('send-message', (payload) => {
-//     console.log(payload);
-// })
+socket.on('list-users', (users) => {
+    console.log(users);
+})
+
+socket.on('new-message', (payload) => {
+    console.log(payload);
+})
 
 
-// document.getElementById('form').addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const message = document.getElementById('message').value;
-//     const data = {
-//         message
-//     }
-//     socket.emit('send-message', data, (payload) => {
-//         console.log("desde el sever", payload);
-//     });
-//     message.value = '';
-// });
+//Message private
+socket.on('private-message', (payload) => {
+    console.log(payload);
+})
